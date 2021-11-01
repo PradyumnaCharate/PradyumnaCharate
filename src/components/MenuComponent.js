@@ -2,21 +2,15 @@ import React,{ Component } from "react";
 import { Media } from "reactstrap";
 import { Card, CardImg, CardImgOverlay, CardText, CardBody,
     CardTitle } from 'reactstrap';
-import  DishDetail  from "./DishdetailComponent";
+
 
     class Menu extends Component{
     constructor(props){
         super(props);
         //State strores properties related to component that we can use of in code
-        this.state={
-            //Initialluy selectedDish is NULL but afterwards if we click on some card then that dish will get selected.
-            selectedDish:null
-        }
     }
-    //change state of component when clicked on one of dish
-    onDishSelect(dish){
-        this.setState({ selectedDish: dish});
-    }
+
+    
     //We should implement render method to return corresponding view for this component
   
     render(){
@@ -34,7 +28,7 @@ import  DishDetail  from "./DishdetailComponent";
                 //Media left middle is reactstrap implementation of bootstrap media which will take media to ledt middle;
                 //m-1 is 1 margin to all sides
                 <div key={dish.id} className="col-12 col-md-5 m-1">
-                    <Card onClick={()=>this.onDishSelect(dish)}>
+                    <Card onClick={()=>this.props.onClick(dish.id)}>
                         <CardImg width="100%" src={dish.image} alt={dish.name}/>
                         <CardImgOverlay>
                             <CardTitle>{dish.name}</CardTitle>
@@ -50,7 +44,6 @@ import  DishDetail  from "./DishdetailComponent";
                 <div className="row">
                         {menu}
                  </div>
-                 <DishDetail dish={this.state.selectedDish} />   
             </div>
 
         );

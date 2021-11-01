@@ -5,7 +5,7 @@ import { Card, CardImg, CardImgOverlay, CardText, CardBody,
 class DishDetail extends Component{
     convertDateToCommentDateFormat(timestamp) {
         const date = new Date(timestamp);
-        return date.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' });
+        return date.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: '2-digit' });
       }
 
     renderDish(dish){
@@ -57,7 +57,8 @@ class DishDetail extends Component{
         render() {
           if (this.props.dish != null) {
             return (
-              <div className="row">
+            <div className="container">
+                <div className="row">
                 <div className="col-12 col-md-5 m-1">
                   { this.renderDish(this.props.dish) }
                 </div>
@@ -65,6 +66,8 @@ class DishDetail extends Component{
                   { this.renderComments(this.props.dish.comments) }
                 </div>
               </div>
+
+            </div>
             );
           }
           else {
