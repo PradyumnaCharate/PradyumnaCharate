@@ -1,7 +1,7 @@
 import React,{ Component } from 'react';
 import Main from './components/MainComponent';
 import './App.css';
-import { BrowseRouter} from "react-router-dom";
+import { BrowserRouter} from "react-router-dom";
 
 
 
@@ -10,9 +10,9 @@ class App extends Component {
     return (
         //So here we have two components Navbar and menu and they are in App component and this App component is used in index.js. 
         //So App component is paerent of menu component.
-      <BrowserRouter>
-        <div>
-          <Main/>      
+        <BrowserRouter>
+        <div className="App">
+          <Main />
         </div>
       </BrowserRouter>
     );

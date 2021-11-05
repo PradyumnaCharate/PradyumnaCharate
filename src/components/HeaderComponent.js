@@ -1,18 +1,81 @@
 import React, { Component } from 'react';
-import { Navbar, NavbarBrand } from 'reactstrap';
-//import "../index.css";
-
-//import Jumbotron from 'react-bootstrap/Jumbotron';
+import { Nav, Navbar, NavbarBrand, NavbarToggler, Collapse, NavItem, Jumbotron,Modal,ModalBody,Button,ModalHeader,FormGroup,Form,Label,Input } from 'reactstrap';
+import { NavLink } from 'react-router-dom';
 
 class Header extends Component {
-  render() {
-    return(
-    <React.Fragment>
-      <Navbar dark>
-        <div className="container">
-            <NavbarBrand href="/">Ristorante Con Fusion</NavbarBrand>
-        </div>
-      </Navbar>
+    constructor(props) {
+        super(props);
+    
+        this.toggleNav = this.toggleNav.bind(this);
+        this.toggleModal = this.toggleModal.bind(this);
+        this.handleLogin = this.handleLogin.bind(this);
+        this.state = {
+          isNavOpen: false,
+          isModalOpen:false
+        };
+      }
+
+      toggleNav() {
+        this.setState({
+          isNavOpen: !this.state.isNavOpen
+        });
+      }
+      toggleModal(){
+        this.setState({
+          isModalOpen:!this.state.isModalOpen
+
+        });
+
+      }
+      handleLogin(event){
+        this.toggleModal();
+        alert("Username: " + this.username.value + " Password: " + this.password.value
+        + " Remember: " + this.remember.checked);
+        event.preventDefault();
+      }
+
+    render() {
+        return(
+        <div >
+                <Navbar dark expand="sm" id="nav">
+                    <div className="container">
+                      <div className="row">
+                        <NavbarBrand className="col-md-1" href="/"><img src='assets/images/logo.png' height="30" width="41" alt='Ristorante Con Fusion' />
+                        </NavbarBrand>
+                        <NavbarToggler onClick={this.toggleNav} />
+                          
+                        <Collapse isOpen={this.state.isNavOpen}  navbar className="col-md-9">
+                           
+                                <Nav navbar>
+                                  <NavItem>
+                                      <NavLink className="nav-link"  to='/home'><span className="fa fa-home fa-lg"></span> Home</NavLink>
+                                  </NavItem>
+                                  <NavItem>
+                                      <NavLink className="nav-link" to='/aboutus'><span className="fa fa-info fa-lg"></span> About Us</NavLink>
+                                  </NavItem>
+                                  <NavItem>
+                                      <NavLink className="nav-link"  to='/menu'><span className="fa fa-list fa-lg"></span> Menu</NavLink>
+                                  </NavItem>
+                                  <NavItem>
+                                      <NavLink className="nav-link" to='/contactus'><span className="fa fa-address-card fa-lg"></span> Contact Us</NavLink>
+                                  </NavItem>
+                                </Nav>
+                                <Nav id ="modal" className="ml-auto" navbar>
+                                  <NavItem >
+                                    <Button outline onClick={this.toggleModal}>
+                                      <span className="fa fa-sign-in fa-lg">Login</span>
+                                    </Button>
+                                  </NavItem>
+
+                          </Nav>
+                                
+                         
+                        </Collapse>
+                        
+              
+                     </div>
+                    </div>
+                </Navbar>
            <div className="header" id="jumbotron">
              <div className="container">
                <div className="row row-header">
@@ -21,9 +84,35 @@ class Header extends Component {
                        <p>We take inspiration from the World's best cuisines, and create a unique fusion experience. Our lipsmacking creations will tickle your culinary senses!</p>
                    </div>
                </div>
-            </div>
+              </div>
+  
           </div>
-    </React.Fragment>
+          <Modal isOpen={this.state.isModalOpen} toggle={this.toggleModal} >
+            <ModalHeader isOpen={this.state.isModalOpen} toggle={this.toggleModal}>Login</ModalHeader>
+            <ModalBody><Form onSubmit={this.handleLogin}>
+                            <FormGroup>
+                                <Label htmlFor="username">Username</Label>
+                                <Input type="text" id="username" name="username"
+                                    innerRef={(input) => this.username = input} />
+                            </FormGroup>
+                            <FormGroup>
+                                <Label htmlFor="password">Password</Label>
+                                <Input type="password" id="password" name="password"
+                                    innerRef={(input) => this.password = input}  />
+                            </FormGroup>
+                            <FormGroup check>
+                                <Label check>
+                                    <Input type="checkbox" name="remember"
+                                    innerRef={(input) => this.remember = input}  />
+                                    Remember me
+                                </Label>
+                            </FormGroup>
+                            <Button type="submit" value="submit" color="primary">Login</Button>
+                        </Form>
+                      </ModalBody>
+
+          </Modal>
+      </div>
     );
   }
 }
